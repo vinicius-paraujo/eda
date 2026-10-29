@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <memory>
+#include <optional>
 #include <vector>
 
 using tipo_chave = std::uint32_t;
@@ -17,6 +18,11 @@ class lista_persistente {
 
         void incluir(tipo_chave chave);
         void remover(tipo_chave chave);
+
+        std::optional<tipo_chave> sucessor(
+            tipo_chave chave,
+            tipo_versao versao
+        ) const;
 
     private:
         // O enunciado limita a entrada a 1000 inclusões e remoções, além da versão 0 vazia.

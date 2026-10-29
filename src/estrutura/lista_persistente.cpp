@@ -47,6 +47,16 @@ void lista_persistente::remover(tipo_chave chave) {
     }
 }
 
+std::optional<tipo_chave> lista_persistente::sucessor(
+    tipo_chave chave,
+    tipo_versao versao
+) const {
+    for (const no* atual = raiz_da_versao(versao); atual; atual = ler_proximo(atual, versao)) {
+        if (atual->chave > chave) return atual->chave;
+    }
+    return std::nullopt;
+}
+
 // Devolve nulo quando a posição procurada é o início da lista.
 lista_persistente::no* lista_persistente::ultimo_menor_que(
     tipo_chave chave,
