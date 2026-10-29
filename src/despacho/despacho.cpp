@@ -11,6 +11,7 @@ void executar(
             lista.incluir(atual.primeiro_argumento);
             break;
         case tipo_comando::remocao:
+            lista.remover(atual.primeiro_argumento);
             break;
         case tipo_comando::sucessor:
         case tipo_comando::impressao:

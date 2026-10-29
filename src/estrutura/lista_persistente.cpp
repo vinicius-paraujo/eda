@@ -32,6 +32,21 @@ void lista_persistente::incluir(tipo_chave chave) {
     }
 }
 
+// O enunciado exige uma nova versão mesmo quando a chave não está presente.
+void lista_persistente::remover(tipo_chave chave) {
+    const tipo_versao versao = criar_versao();
+    no* predecessor = ultimo_menor_que(chave, versao);
+    no* alvo = predecessor ? ler_proximo(predecessor, versao) : raiz_da_versao(versao);
+    if (!alvo || alvo->chave != chave) return;
+
+    no* sucessor = ler_proximo(alvo, versao);
+    if (predecessor) {
+        atribuir_proximo(predecessor, sucessor, versao);
+    } else {
+        definir_raiz(sucessor, versao);
+    }
+}
+
 // Devolve nulo quando a posição procurada é o início da lista.
 lista_persistente::no* lista_persistente::ultimo_menor_que(
     tipo_chave chave,

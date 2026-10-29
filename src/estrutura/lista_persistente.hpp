@@ -16,6 +16,7 @@ class lista_persistente {
         tipo_versao versao_atual() const;
 
         void incluir(tipo_chave chave);
+        void remover(tipo_chave chave);
 
     private:
         // O enunciado limita a entrada a 1000 inclusões e remoções, além da versão 0 vazia.
