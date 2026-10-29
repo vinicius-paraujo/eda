@@ -31,6 +31,7 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
+    lista_persistente lista;
     std::string linha;
     int numero_da_linha = 0;
     while (std::getline(entrada, linha)) {
@@ -44,7 +45,7 @@ int main(int argc, char* argv[]) {
                       << linha << '\n';
             continue;
         }
-        executar(*atual);
+        executar(*atual, lista);
     }
 
     return 0;

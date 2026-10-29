@@ -19,6 +19,33 @@ lista_persistente::no* lista_persistente::raiz_da_versao(tipo_versao versao) con
     return raizes.at(versao);
 }
 
+void lista_persistente::incluir(tipo_chave chave) {
+    const tipo_versao versao = criar_versao();
+    no* predecessor = ultimo_menor_que(chave, versao);
+
+    if (predecessor) {
+        no* novo = criar_no(chave, ler_proximo(predecessor, versao));
+        atribuir_proximo(predecessor, novo, versao);
+    } else {
+        no* novo = criar_no(chave, raiz_da_versao(versao));
+        definir_raiz(novo, versao);
+    }
+}
+
+// Devolve nulo quando a posição procurada é o início da lista.
+lista_persistente::no* lista_persistente::ultimo_menor_que(
+    tipo_chave chave,
+    tipo_versao versao
+) const {
+    no* anterior = nullptr;
+    no* atual = raiz_da_versao(versao);
+    while (atual && atual->chave < chave) {
+        anterior = atual;
+        atual = ler_proximo(atual, versao);
+    }
+    return anterior;
+}
+
 lista_persistente::no* lista_persistente::criar_no(tipo_chave chave, no* proximo) {
     nos.push_back(std::make_unique<no>(no{chave, proximo, nullptr, {}, 0}));
     no* novo = nos.back().get();
