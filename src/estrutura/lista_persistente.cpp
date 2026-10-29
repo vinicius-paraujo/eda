@@ -32,7 +32,8 @@ void lista_persistente::incluir(tipo_chave chave) {
     }
 }
 
-// O enunciado exige uma nova versão mesmo quando a chave não está presente.
+// Toda remoção gera uma versão, mesmo sem efeito, para que o identificador de versão
+// coincida com o número de modificações executadas.
 void lista_persistente::remover(tipo_chave chave) {
     const tipo_versao versao = criar_versao();
     no* predecessor = ultimo_menor_que(chave, versao);

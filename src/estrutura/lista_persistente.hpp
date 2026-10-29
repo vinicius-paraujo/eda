@@ -27,7 +27,8 @@ class lista_persistente {
         std::vector<tipo_chave> listar(tipo_versao versao) const;
 
     private:
-        // O enunciado limita a entrada a 1000 inclusões e remoções, além da versão 0 vazia.
+        // Cada inclusão ou remoção gera exatamente uma versão; com no máximo 1000 delas,
+        // somadas à versão 0 vazia, há no máximo 1001 versões.
         static constexpr std::size_t MAXIMO_DE_VERSOES = 1001;
 
         // Numa lista simplesmente encadeada cada nó é apontado apenas pelo predecessor ou pela raiz.

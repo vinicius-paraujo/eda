@@ -33,7 +33,8 @@ void executar_impressao(
     const comando& atual,
     const lista_persistente& lista
 ) {
-    // O enunciado determina que uma versão inexistente seja impressa como a mais recente.
+    // Uma versão posterior à mais recente ainda não existe; a impressão adota a mais recente,
+    // que representa o estado atual da estrutura.
     const tipo_versao versao = std::min(atual.primeiro_argumento, lista.versao_atual());
     const std::vector<tipo_chave> chaves = lista.listar(versao);
 
