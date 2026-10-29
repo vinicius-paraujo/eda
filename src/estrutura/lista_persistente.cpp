@@ -57,6 +57,14 @@ std::optional<tipo_chave> lista_persistente::sucessor(
     return std::nullopt;
 }
 
+std::vector<tipo_chave> lista_persistente::listar(tipo_versao versao) const {
+    std::vector<tipo_chave> chaves;
+    for (const no* atual = raiz_da_versao(versao); atual; atual = ler_proximo(atual, versao)) {
+        chaves.push_back(atual->chave);
+    }
+    return chaves;
+}
+
 // Devolve nulo quando a posição procurada é o início da lista.
 lista_persistente::no* lista_persistente::ultimo_menor_que(
     tipo_chave chave,

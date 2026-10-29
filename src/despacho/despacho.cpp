@@ -1,7 +1,9 @@
 #include "despacho/despacho.hpp"
 
+#include <algorithm>
 #include <iostream>
 #include <optional>
+#include <vector>
 
 namespace {
 
@@ -27,6 +29,21 @@ void executar_sucessor(
     }
 }
 
+void executar_impressao(
+    const comando& atual,
+    const lista_persistente& lista
+) {
+    // O enunciado determina que uma versão inexistente seja impressa como a mais recente.
+    const tipo_versao versao = std::min(atual.primeiro_argumento, lista.versao_atual());
+    const std::vector<tipo_chave> chaves = lista.listar(versao);
+
+    for (std::size_t i = 0; i < chaves.size(); ++i) {
+        if (i > 0) std::cout << ", ";
+        std::cout << chaves[i];
+    }
+    std::cout << '\n';
+}
+
 }
 
 void executar(
@@ -46,6 +63,7 @@ void executar(
             break;
         case tipo_comando::impressao:
             std::cout << atual.linha_original << '\n';
+            executar_impressao(atual, lista);
             break;
     }
 }

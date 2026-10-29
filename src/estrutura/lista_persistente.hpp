@@ -24,6 +24,8 @@ class lista_persistente {
             tipo_versao versao
         ) const;
 
+        std::vector<tipo_chave> listar(tipo_versao versao) const;
+
     private:
         // O enunciado limita a entrada a 1000 inclusões e remoções, além da versão 0 vazia.
         static constexpr std::size_t MAXIMO_DE_VERSOES = 1001;
