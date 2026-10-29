@@ -1,6 +1,23 @@
 #include "estrutura/lista_persistente.hpp"
 
-lista_persistente::lista_persistente() : raizes{nullptr} {}
+lista_persistente::lista_persistente() {
+    raizes.reserve(MAXIMO_DE_VERSOES);
+    raizes.push_back(nullptr);
+}
+
+tipo_versao lista_persistente::versao_atual() const {
+    return static_cast<tipo_versao>(raizes.size() - 1);
+}
+
+// A nova versão começa igual à anterior; a operação que a criou altera apenas o necessário.
+tipo_versao lista_persistente::criar_versao() {
+    raizes.push_back(raizes.back());
+    return versao_atual();
+}
+
+lista_persistente::no* lista_persistente::raiz_da_versao(tipo_versao versao) const {
+    return raizes.at(versao);
+}
 
 lista_persistente::no* lista_persistente::criar_no(tipo_chave chave, no* proximo) {
     nos.push_back(std::make_unique<no>(no{chave, proximo, nullptr, {}, 0}));

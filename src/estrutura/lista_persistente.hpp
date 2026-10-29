@@ -10,37 +10,63 @@ using tipo_chave = std::uint32_t;
 using tipo_versao = std::uint32_t;
 
 class lista_persistente {
-public:
-    lista_persistente();
+    public:
+        lista_persistente();
 
-private:
-    // Numa lista simplesmente encadeada cada nó é apontado apenas pelo predecessor ou pela raiz.
-    static constexpr std::size_t P = 1;
-    static constexpr std::size_t MAX_MODS = 2 * P;
+        tipo_versao versao_atual() const;
 
-    enum class campo { proximo };
+    private:
+        // O enunciado limita a entrada a 1000 inclusões e remoções, além da versão 0 vazia.
+        static constexpr std::size_t MAXIMO_DE_VERSOES = 1001;
 
-    struct no;
+        // Numa lista simplesmente encadeada cada nó é apontado apenas pelo predecessor ou pela raiz.
+        static constexpr std::size_t P = 1;
+        static constexpr std::size_t MAX_MODS = 2 * P;
 
-    struct mod {
-        tipo_versao versao;
-        campo campo_modificado;
-        no* valor;
-    };
+        enum class campo {
+            proximo 
+        };
 
-    struct no {
-        tipo_chave chave;
-        no* proximo;
-        no* ponteiro_retorno;
-        std::array<mod, MAX_MODS> mods;
-        std::size_t quantidade_de_mods;
-    };
+        struct no;
 
-    std::vector<std::unique_ptr<no>> nos;
-    std::vector<no*> raizes;
+        struct mod {
+            tipo_versao versao;
+            campo campo_modificado;
+            no* valor;
+        };
 
-    no* criar_no(tipo_chave chave, no* proximo);
-    static no* ler_proximo(const no* atual, tipo_versao versao);
-    void atribuir_proximo(no* atual, no* destino, tipo_versao versao);
-    void definir_raiz(no* nova_raiz, tipo_versao versao);
+        struct no {
+            tipo_chave chave;
+            no* proximo;
+            no* ponteiro_retorno;
+            std::array<mod, MAX_MODS> mods;
+            std::size_t quantidade_de_mods;
+        };
+
+        std::vector<std::unique_ptr<no>> nos;
+        std::vector<no*> raizes;
+
+        no* criar_no(
+            tipo_chave chave, 
+            no* proximo
+        );
+
+        static no* ler_proximo(
+            const no* atual, 
+            tipo_versao versao
+        );
+
+        void atribuir_proximo(
+            no* atual, 
+            no* destino, 
+            tipo_versao versao
+        );
+
+        void definir_raiz(
+            no* nova_raiz,
+            tipo_versao versao
+        );
+
+        tipo_versao criar_versao();
+        no* raiz_da_versao(tipo_versao versao) const;
 };
