@@ -4,7 +4,12 @@
 #include <optional>
 #include <string>
 
-enum class tipo_comando { inclusao, remocao, sucessor, impressao };
+enum class tipo_comando {
+    inclusao, 
+    remocao, 
+    sucessor, 
+    impressao 
+};
 
 struct comando {
     tipo_comando tipo;

@@ -7,16 +7,14 @@
 #include <string>
 
 namespace {
+    // Arquivos gerados no Windows terminam linhas com "\r\n", e o "\r" seria ecoado na saída.
+    void remover_retorno_de_carro(std::string& linha) {
+        if (!linha.empty() && linha.back() == '\r') linha.pop_back();
+    }
 
-// Arquivos gerados no Windows terminam linhas com "\r\n", e o "\r" seria ecoado na saída.
-void remover_retorno_de_carro(std::string& linha) {
-    if (!linha.empty() && linha.back() == '\r') linha.pop_back();
-}
-
-bool esta_em_branco(const std::string& linha) {
-    return linha.find_first_not_of(" \t") == std::string::npos;
-}
-
+    bool esta_em_branco(const std::string& linha) {
+        return linha.find_first_not_of(" \t") == std::string::npos;
+    }
 }
 
 int main(int argc, char* argv[]) {

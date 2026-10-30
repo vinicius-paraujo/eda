@@ -7,7 +7,7 @@ Marcos Vinicius Pereira Araujo (matrícula 571042)
 ## Descrição
 
 - **Linguagem de programação utilizada:** C++17, compilado com g++ 13 ou superior (`-std=c++17`)
-- **Estrutura implementada:** lista encadeada ordenada com persistência parcial pelo método de cópia de nós (node copying), com custo adicional O(1) amortizado por operação e espaço O(1) por modificação
+- **Estrutura implementada:** lista encadeada ordenada com persistência parcial pelo método de node copying, com custo adicional O(1) amortizado por operação e espaço O(1) por modificação
 - **Estruturas:**
   - **Lista persistente:**
     - Definida em `src/estrutura/lista_persistente.hpp` e implementada em `src/estrutura/lista_persistente.cpp`
@@ -80,7 +80,7 @@ Marcos Vinicius Pereira Araujo (matrícula 571042)
 ## Considerações
 O trabalho foi construído a partir de diferentes fontes, mas, principalmente as notas de aula do professor e dos vídeos publicados no Youtube que falam sobre persistência (Inclusive, essa playlist salvou minha vida). Encontrei alguns materiais do MIT que também trazem algumas implementações, então foi relativamente tranquilo de implementar a partir desse material.
 
-Além da estrutura para implementação de persistência, existem os diretórios, que são módulos do projeto: `estrutura`, `despacho` e `entrada`. O que acontece respectivamente: estrutura contém a lista persistente. Despacho recebe um comando válido, aciona a lista e escreve a saída. O módulo de entrada recebe uma linha do arquivo, converte em um comando e rejeita linhas inválidas.
+Sobre os módulos do projeto: `estrutura`, `despacho` e `entrada`. O que acontece respectivamente: estrutura contém a lista persistente. Despacho recebe um comando válido, aciona a lista e escreve a saída. O módulo de entrada recebe uma linha do arquivo, converte em um comando e rejeita linhas inválidas.
 
 ### Mudança em relação as saídas
 O enunciado define que a saída de `IMP` separa os elementos por vírgula e espaço (`1, 5, 13`), mas as saídas esperadas dos testes disponibilizados separam apenas por espaço (`1 5 13`). 
@@ -128,7 +128,7 @@ Como houve liberdade para a criação de novos casos de testes, segue a descriç
 
 - (`teste06`) **Chaves repetidas**: o enunciado permite repetição e exige que a remoção retire apenas uma ocorrência, mas nenhum teste do professor inclui a mesma chave duas vezes.
 - (`teste07`) **Versões inexistentes**: o enunciado define a impressão na versão mais recente, mas não define o comportamento do sucessor. Neste trabalho, `SUC` em versão inexistente imprime a linha do comando seguida da mensagem `Versão M não existe; a versão mais recente é V.`, e a execução continua.
-- (`teste08`) **Cópia de nós**: é o mecanismo que garante custo adicional O(1) amortizado. Os testes do professor têm poucas modificações sobre o mesmo nó, então a cópia ocorre raramente.
+- (`teste08`) **Cópia de nós**: verifica as versões após cópias sucessivas de nós e troca de raiz.
 - (`teste09`) **Chaves de pelo menos 16 bits**: a maior chave dos testes do professor é 97.
 - (`teste10`) **1001 versões**: o maior teste do professor tem 54 inclusões e remoções. A saída esperada deste caso foi gerada por um modelo de referência independente, que guarda uma cópia completa da lista em cada versão.
 

@@ -27,7 +27,7 @@ class lista_persistente {
         std::vector<tipo_chave> listar(tipo_versao versao) const;
 
     private:
-        // Cada inclusão ou remoção gera exatamente uma versão; com no máximo 1000 delas,
+        // Cada inclusão ou remoção gera exatamente uma versão, com no máximo 1000 delas,
         // somadas à versão 0 vazia, há no máximo 1001 versões.
         static constexpr std::size_t MAXIMO_DE_VERSOES = 1001;
 

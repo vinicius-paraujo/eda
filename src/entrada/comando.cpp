@@ -4,27 +4,25 @@
 #include <sstream>
 
 namespace {
+    std::optional<tipo_comando> identificar_tipo(const std::string& nome) {
+        if (nome == "INC") return tipo_comando::inclusao;
+        if (nome == "REM") return tipo_comando::remocao;
+        if (nome == "SUC") return tipo_comando::sucessor;
+        if (nome == "IMP") return tipo_comando::impressao;
+        return std::nullopt;
+    }
 
-std::optional<tipo_comando> identificar_tipo(const std::string& nome) {
-    if (nome == "INC") return tipo_comando::inclusao;
-    if (nome == "REM") return tipo_comando::remocao;
-    if (nome == "SUC") return tipo_comando::sucessor;
-    if (nome == "IMP") return tipo_comando::impressao;
-    return std::nullopt;
-}
+    int quantidade_de_argumentos(tipo_comando tipo) {
+        return tipo == tipo_comando::sucessor ? 2 : 1;
+    }
 
-int quantidade_de_argumentos(tipo_comando tipo) {
-    return tipo == tipo_comando::sucessor ? 2 : 1;
-}
-
-// A leitura direta em std::uint32_t aceitaria "-1" convertendo para um valor enorme.
-std::optional<std::uint32_t> ler_inteiro_nao_negativo(std::istringstream& fluxo) {
-    long long valor;
-    if (!(fluxo >> valor)) return std::nullopt;
-    if (valor < 0 || valor > std::numeric_limits<std::uint32_t>::max()) return std::nullopt;
-    return static_cast<std::uint32_t>(valor);
-}
-
+    // A leitura direta em std::uint32_t aceitaria "-1" convertendo para um valor enorme.
+    std::optional<std::uint32_t> ler_inteiro_nao_negativo(std::istringstream& fluxo) {
+        long long valor;
+        if (!(fluxo >> valor)) return std::nullopt;
+        if (valor < 0 || valor > std::numeric_limits<std::uint32_t>::max()) return std::nullopt;
+        return static_cast<std::uint32_t>(valor);
+    }
 }
 
 std::optional<comando> interpretar_linha(const std::string& linha) {
